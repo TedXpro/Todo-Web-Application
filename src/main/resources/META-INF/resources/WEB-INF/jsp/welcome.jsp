@@ -1,14 +1,9 @@
-<html>
-    <head>
-        <title>Welcome Page</title>
-    </head>
-
-    <body>
+<%@ include file="common/header.jsp" %>
+    <%@ include file="common/navigation.jsp" %>
 
         <div class="container">
             <h1>Welcome ${name}</h1>
-            <a href="list-todos">Manage</a> your todos 
+            <a href="list-todos">Manage</a> your todos
         </div>
 
-    </body>
-</html>
+        <%@ include file="common/footer.jsp" %>
