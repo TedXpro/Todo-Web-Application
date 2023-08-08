@@ -1,4 +1,4 @@
-package com.in28minutes.springboot.myfirstwebapp.todo;
+package com.in28minutes.springboot.myfirstwebapp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
