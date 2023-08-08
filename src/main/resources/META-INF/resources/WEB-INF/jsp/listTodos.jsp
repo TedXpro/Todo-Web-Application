@@ -21,8 +21,8 @@
                 <c:forEach items="${todos}" var="todo">
                     <tr>
                         <td>${todo.id}</td>
-                        <td>${todo.Description}</td>
-                        <td>${todo.Target Date}</td>
+                        <td>${todo.description}</td>
+                        <td>${todo.targetDate}</td>
                         <td>${todo.done}</td>
                     </tr>
                 
