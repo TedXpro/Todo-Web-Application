@@ -4,7 +4,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.function.Predicate;
 import org.springframework.stereotype.Service;
+
+import jakarta.validation.Valid;
 
 @Service
 public class TodoService {
@@ -14,7 +17,7 @@ public class TodoService {
 
     static {
         todos.add(new Todo(++todosCount, "in28minutes",
-                "Learn AWS",
+                "Learn AWS and Get certified",
                 LocalDate.now().plusYears(1), false));
         todos.add(new Todo(++todosCount, "in28minutes",
                 "Learn DevOps",
@@ -28,9 +31,27 @@ public class TodoService {
         return todos;
     }
 
-    public void addTodo(String username, String description, LocalDate targetDate, boolean done) {
+    public void addTodo(String username, String description,
+            LocalDate targetDate, boolean done) {
         Todo todo = new Todo(++todosCount, username, description, targetDate, done);
         todos.add(todo);
     }
 
+    public void deleteById(int id) {
+        // lmbda notation
+        Predicate<? super Todo> predicate = todo -> todo.getId() == id;
+        todos.removeIf(predicate);
+    }
+
+    public Todo findById(int id) {
+        // predicate helps find and match by id from the todo list.
+        Predicate<? super Todo> predicate = todo -> todo.getId() == id;
+        Todo todo = todos.stream().filter(predicate).findFirst().get();
+        return todo;
+    }
+
+    public void updateTodo(@Valid Todo todo) {
+        deleteById(todo.getId());
+        todos.add(todo);
+    }
 }
