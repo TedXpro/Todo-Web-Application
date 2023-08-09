@@ -22,12 +22,13 @@ public class TodoController {
     private TodoService todoService;
 
     public TodoController(TodoService todoService) {
+        super();
         this.todoService = todoService;
     }
 
     @RequestMapping("list-todos")
     public String listAllTodos(ModelMap model) {
-        String username = (String) model.get("name");
+        String username = getLoggedInUsername(model);
         List<Todo> todos = todoService.findByUsername(username);
         model.addAttribute("todos", todos);
 
@@ -36,7 +37,7 @@ public class TodoController {
 
     @RequestMapping(value = "add-todo", method = RequestMethod.GET)
     public String showNewTodoPage(ModelMap model) {
-        String username = (String) model.get("name");
+        String username = getLoggedInUsername(model);
         Todo todo = new Todo(0, username, "",
                 LocalDate.now().plusYears(1), false);
 
@@ -51,7 +52,7 @@ public class TodoController {
             return "todo";
         }
 
-        String username = (String) model.get("name");
+        String username = getLoggedInUsername(model);
         todoService.addTodo(username, todo.getDescription(),
                 todo.getTargetDate(), false);
 
@@ -79,7 +80,7 @@ public class TodoController {
             return "todo";
         }
 
-        String username = (String) model.get("name");
+        String username = getLoggedInUsername(model);
         todo.setUsername(username);
         todoService.updateTodo(todo);
         return "redirect:list-todos"; // redirect: returns to the page that already has some data; it redirects it.
